@@ -17,7 +17,7 @@ namespace Client.Scripts.Inputs.Systems
             if (_dragEventFilter.IsEmpty())
                 return;
 
-            var dragEvent = _dragEventFilter.Get1(0);
+            ref var dragEvent = ref _dragEventFilter.Get1(0);
             var mouseSensitive = _levelSettingsFilter.Single().LevelSettings.mouseSensitive;
 
             ref var move = ref _world.NewEntity().Get<MoveCameraEvent>();

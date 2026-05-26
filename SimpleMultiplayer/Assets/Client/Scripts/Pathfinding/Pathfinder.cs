@@ -7,8 +7,8 @@ namespace Client.Scripts.Pathfinding
     public static class Pathfinder
     {
         private const float Tolerance = 0.00001f;
-        private static readonly HashSet<Node> ClosedSet = new HashSet<Node>();
-        private static readonly List<Node> OpenSet = new List<Node>();
+        private static readonly HashSet<Node> ClosedSet = new();
+        private static readonly List<Node> OpenSet = new();
 
         private static GridBase _grid;
 

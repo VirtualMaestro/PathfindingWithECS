@@ -33,23 +33,23 @@ namespace Client.Scripts.Players.Systems
             var start = new Node((int) playerPosition.x, (int) playerPosition.y);
             var end = new Node(move.GridX, move.GridY);
 
-            if (Pathfinder.FindPath(grid, start, end, ref path))
-            {
-                var position = playerTransform.position;
-                var vertices = _Convert(path, levelSettings.cellSize, position.y);
-                var duration = vertices.Length * levelSettings.playerSettings.playerSpeed;
-                var direction = (vertices[vertices.Length - 1] - position).normalized;
-                var rotation = Quaternion.LookRotation(direction);
+            if (!Pathfinder.FindPath(grid, start, end, ref path)) 
+                return;
+            
+            var position = playerTransform.position;
+            var vertices = _Convert(path, levelSettings.cellSize, position.y);
+            var duration = vertices.Length * levelSettings.playerSettings.playerSpeed;
+            var direction = (vertices[^1] - position).normalized;
+            var rotation = Quaternion.LookRotation(direction);
 
-                DOTween.Kill(playerComponent.MoveAnimationId);
+            DOTween.Kill(playerComponent.MoveAnimationId);
                 
-                var sequence = DOTween.Sequence();
-                sequence
-                    .Append(playerTransform.DORotate(rotation.eulerAngles, 0.3f))
-                    .Append(playerTransform.DOPath(vertices, duration).SetLookAt(1.0f, Vector3.forward, Vector3.up));
+            var sequence = DOTween.Sequence();
+            sequence
+                .Append(playerTransform.DORotate(rotation.eulerAngles, 0.3f))
+                .Append(playerTransform.DOPath(vertices, duration).SetLookAt(1.0f, Vector3.forward, Vector3.up));
                 
-                playerComponent.MoveAnimationId = sequence.intId;
-            }
+            playerComponent.MoveAnimationId = sequence.intId;
         }
 
         private Vector3[] _Convert(List<Node> path, float cellSize, float playerPosY)
