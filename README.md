@@ -1,6 +1,5 @@
-# SimpleMultiplayer - WIP
-Example multiplayer project which is based on:
+# Pathfinding demo built on ECS architecture approach
 
 * Game framework [StubbUnity](https://github.com/VirtualMaestro/StubbUnity)
 * ECS architecture powered by [LeoECS](https://github.com/Leopotam/ecs)
-* [Photon engine](https://www.photonengine.com/) - WIP
+* Simple Pathfinding
